@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ferrari — The Range</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ============================================================
+       HERO — Main1. Visuals unchanged from the original file.
+       ============================================================ -->
+  <div class="Main1" id="top">
+    <div class="Sub11">
+      <img src="https://i0.wp.com/thejudge13.com/wp-content/uploads/2026/01/ferrari2026shakedown-ezgif.com-webp-to-jpg-converter.jpg" alt="Ferrari 2026 shakedown">
+    </div>
+    <div class="Sub12">
+      <img src="https://cdn.wallpapersafari.com/73/2/LOE4em.jpg" alt="Ferrari detail">
+    </div>
+    <div class="Sub13" id="navBlock">
+      <table>
+        <tr>
+          <td onclick="scrollToId('top')">Home</td>
+          <td onclick="scrollToId('models')">Models</td>
+          <td onclick="scrollToId('booking')">Bookings</td>
+          <td onclick="scrollToId('heritage')">Heritage</td>
+          <td onclick="scrollToId('contact')">Contact</td>
+        </tr>
+      </table>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">MENU</button>
+    <div class="Sub14">
+      F E R R A R I
+    </div>
+    <div class="Sub15">
+      <img src="https://pngimg.com/uploads/ferrari/ferrari_PNG102798.png" alt="Ferrari logo">
+    </div>
+  </div>
+
+  <!-- ============================================================
+       MANIFESTO / VIDEO — Main2, enhanced with overlay + telemetry
+       ============================================================ -->
+  <section class="Main2" id="manifesto">
+    <video autoplay loop muted playsinline
+      poster="https://media.formula1.com/image/upload/c_lfill,w_3392/q_auto/v1740000001/fom-website/2026/Ferrari/G_V027BWQAASNgK.webp">
+      <source src="videos/f80-intro.mp4" type="video/mp4">
+    </video>
+    <div>
+      <div class="video-overlay">
+        <span class="eyebrow">Race. Refine. Repeat.</span>
+        <h2 class="section-heading">The Spirit of Maranello</h2>
+        <p>Every Ferrari begins on a track and ends as a feeling. Sixty-eight years of racing distilled into road cars that still remember where they came from.</p>
+        <div class="cta-row">
+          <button class="model-cta" onclick="scrollToId('models')">See the range</button>
+        </div>
+      </div>
+      <div class="telemetry" aria-hidden="true">
+        <div class="telemetry-track" id="telemetryTrack">
+          <!-- populated from /api/models by main.js -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MODEL RANGE — Main3, data-driven from /api/models
+       ============================================================ -->
+  <section class="Main3 section" id="models">
+    <span class="eyebrow">Current Range</span>
+    <h2 class="section-heading">Five Cars. One Obsession.</h2>
+    <p class="section-lede">Every model pulled live from the dealership database — specs, pricing, and availability in one place.</p>
+    <p class="models-status" id="modelsStatus">Loading range data…</p>
+    <div class="model-grid" id="modelGrid"></div>
+  </section>
+
+  <!-- ============================================================
+       HERITAGE — new section
+       ============================================================ -->
+  <section class="Main5" id="heritage">
+    <div class="heritage-copy">
+      <span class="eyebrow">Since 1947</span>
+      <h2 class="section-heading">Built From Racing</h2>
+      <p class="section-lede">Ferrari has never built a road car that didn't first prove itself on track. That DNA — the obsession with weight, balance, and response — runs through every model in the current range.</p>
+      <div class="heritage-stats">
+        <div><b>1947</b><span>Founded</span></div>
+        <div><b>V6 / V8 / V12</b><span>Engine families</span></div>
+        <div><b>Maranello</b><span>Home &amp; factory</span></div>
+      </div>
+    </div>
+    <div class="heritage-media">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx3o_iPJLC-TCLbQWR6a7ebPa4_HDqedris6DRJF8YfXFBt-VYISETY4A&s=10" alt="Ferrari on track">
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BOOKING — new section, writes to /api/bookings
+       ============================================================ -->
+  <section class="Main6 section" id="booking">
+    <span class="eyebrow">Test Drive</span>
+    <h2 class="section-heading">Book Your Drive</h2>
+    <p class="section-lede">Choose a model and a dealership. Our agent from the local showroom will confirm your slot directly.</p>
+
+    <div class="booking-layout">
+      <div>
+        <p class="section-lede">Test drives run roughly 45 minutes with a factory-trained driving instructor, starting and ending at the dealership of your choice.</p>
+      </div>
+
+      <form class="booking-form" id="bookingForm">
+        <div class="field">
+          <label for="b_name">Full name</label>
+          <input id="b_name" name="full_name" type="text" required>
+        </div>
+        <div class="field">
+          <label for="b_email">Email</label>
+          <input id="b_email" name="email" type="email" required>
+        </div>
+        <div class="field">
+          <label for="b_phone">Phone</label>
+          <input id="b_phone" name="phone" type="tel">
+        </div>
+        <div class="field">
+          <label for="b_model">Model</label>
+          <select id="b_model" name="model_id" required>
+            <option value="">Loading models…</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="b_dealership">Dealership</label>
+          <select id="b_dealership" name="dealership" required>
+            <option value="Maranello">Maranello</option>
+            <option value="Milan">Milan</option>
+            <option value="London">London</option>
+            <option value="New York">New York</option>
+            <option value="Dubai">Dubai</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="b_date">Preferred date</label>
+          <input id="b_date" name="preferred_date" type="date" required>
+        </div>
+        <div class="field full">
+          <label for="b_message">Anything we should know</label>
+          <textarea id="b_message" name="message" placeholder="Optional"></textarea>
+        </div>
+        <button type="submit" class="submit-btn" id="bookingSubmit">Request Test Drive</button>
+        <p class="form-status" id="bookingStatus"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CONTACT / FOOTER — Main4, enhanced, writes to /api/contact
+       ============================================================ -->
+  <section class="Main4" id="contact">
+    <span class="eyebrow">Get In Touch</span>
+    <h2 class="section-heading">Talk To The Showroom</h2>
+    <p class="section-lede">Questions about a model, a configuration, or an order in progress — send a message and the nearest showroom will follow up.</p>
+
+    <form class="contact-form" id="contactForm">
+      <div class="field">
+        <label for="c_name">Full name</label>
+        <input id="c_name" name="full_name" type="text" required>
+      </div>
+      <div class="field">
+        <label for="c_email">Email</label>
+        <input id="c_email" name="email" type="email" required>
+      </div>
+      <div class="field">
+        <label for="c_subject">Subject</label>
+        <input id="c_subject" name="subject" type="text" placeholder="e.g. 296 GTB configuration">
+      </div>
+      <div class="field">
+        <label for="c_message">Message</label>
+        <textarea id="c_message" name="message" required></textarea>
+      </div>
+      <button type="submit" class="cta">Send Message</button>
+      <p class="form-status" id="contactStatus"></p>
+    </form>
+
+    <div class="footer-bar">
+      <span>© 2026 Ferrari Experience — demo build</span>
+      <div class="footer-links">
+        <a href="mailto:ferrari@f1.com">ferrari@f1.com</a>
+        <a href="#top" onclick="scrollToId('top')">Home</a>
+        <a href="#models" onclick="scrollToId('models')">Models</a>
+        <a href="#booking" onclick="scrollToId('booking')">Bookings</a>
+      </div>
+    </div>
+  </section>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
