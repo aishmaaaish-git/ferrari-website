@@ -1,68 +1,94 @@
-# Ferrari Experience — Full-Stack Rebuild
+# 🏎️ Ferrari Experience
 
-A responsive Ferrari showcase site: the original hero viewport is preserved pixel-for-pixel
-(colors, layout, hover animation, nav table), everything after it has been rebuilt with a
-real backend and database behind it.
+A full-stack rebuild of a static Ferrari landing page into a responsive, data-driven website.
+The original animation is preserved pixel-for-pixel; everything below it — the model
+range, test-drive booking system, and contact form — is now backed by a real Express API
+and SQLite database.
 
-## Stack
+**Live demo:** run locally at `http://localhost:3000` (see [Getting Started](#getting-started))
 
-- **Frontend:** static HTML/CSS/JS in `public/` (no framework, no build step)
-- **Backend:** Node.js + Express (`server.js`, `routes/`)
-- **Database:** SQLite via `better-sqlite3` (`db/init.js` creates and seeds `db/ferrari.db` on first run)
+---
 
-## What's in the database
+## Features
 
-Three tables, created automatically the first time the server starts:
+- **Untouched frontend** — same colors, layout, and hover-reveal animation as the original design, now responsive down to mobile
+- **Dynamic model range** — cards rendered from a SQLite `models` table via `/api/models`, not hardcoded HTML
+- **Live telemetry ticker** — a scrolling HUD-style strip reading real spec data (power, 0–100, top speed) straight from the database
+- **Test-drive booking system** — a validated form that writes bookings to the database via `/api/bookings`
+- **Contact form** — messages persist to a `contact_messages` table via `/api/contact`
+- **Zero build step** — plain HTML/CSS/JS on the frontend, no bundler required
 
-| Table               | Purpose                                      |
-|----------------------|-----------------------------------------------|
-| `models`             | The 5 cars shown in the range grid + ticker  |
-| `bookings`           | Test-drive requests submitted on the site    |
-| `contact_messages`   | Messages submitted on the contact form       |
+## Tech Stack
 
-## Running it
+| Layer      | Tech                                  |
+|------------|----------------------------------------|
+| Frontend   | HTML, CSS, vanilla JavaScript         |
+| Backend    | Node.js, Express                      |
+| Database   | SQLite (via `better-sqlite3`)         |
+| Fonts      | Oswald, Inter, JetBrains Mono (Google Fonts) |
+
+## Project Structure
+
+```
+ferrari-website/
+├── server.js              # Express app entry point
+├── package.json
+├── db/
+│   └── init.js             # creates + seeds SQLite tables on first run
+├── routes/
+│   ├── models.js           # GET /api/models, /api/models/:id
+│   ├── bookings.js         # GET/POST /api/bookings
+│   └── contact.js          # POST /api/contact
+└── public/
+    ├── index.html
+    ├── css/style.css
+    ├── js/main.js
+    └── videos/              # drop f80-intro.mp4 here (not bundled)
+```
+
+## Getting Started
+
+### Prerequisites
+- [Node.js](https://nodejs.org) v18 or higher
+
+### Installation
 
 ```bash
+git clone https://github.com/<your-username>/ferrari-website.git
+cd ferrari-website
 npm install
 npm start
 ```
 
-Then open **http://localhost:3000**.
+Then open **http://localhost:3000** in your browser.
 
-## API endpoints
+The SQLite database (`db/ferrari.db`) is created and seeded automatically the first time
+the server starts — no manual setup required.
 
-| Method | Path             | Description                          |
-|--------|------------------|---------------------------------------|
-| GET    | `/api/models`      | List all models                     |
-| GET    | `/api/models/:id`  | Get a single model                  |
-| POST   | `/api/bookings`    | Create a test-drive booking         |
-| GET    | `/api/bookings`    | List all bookings (admin/demo view) |
-| POST   | `/api/contact`     | Submit a contact message            |
+## API Reference
 
-## What changed vs. the original file
+| Method | Endpoint            | Description                          |
+|--------|---------------------|----------------------------------------|
+| GET    | `/api/models`       | List all models                        |
+| GET    | `/api/models/:id`   | Get a single model by ID                |
+| POST   | `/api/bookings`     | Create a test-drive booking             |
+| GET    | `/api/bookings`     | List all bookings (admin/demo view)     |
+| POST   | `/api/contact`      | Submit a contact message                |
 
-- **Hero (`Main1`):** untouched visually — same colors, same hover-reveal animation, same
-  nav table and logo. Added a collapsing mobile nav (`nav-toggle`) that only appears under
-  800px, so the desktop view is identical to the source file.
-- **Video section (`Main2`):** now has a headline/overlay ("Engineering Emotion") and a
-  scrolling telemetry ticker that reads live spec data straight from `/api/models`.
-- **Gallery (`Main3`):** the four static image quadrants became a data-driven model grid —
-  each card is rendered from the database (name, category, tagline, power, 0–100, top
-  speed) with a "Book Test Drive" button that jumps to the booking form pre-selected.
-- **New heritage section:** short brand story with a stat strip, breaks up the flow between
-  the range and the booking form.
-- **New booking section:** a real form that POSTs to `/api/bookings` and is stored in
-  SQLite — model and dealership are selects, date is required, everything is validated
-  server-side too.
-- **Footer (`Main4`):** the dead `<button>Explore</button>` became a working contact form
-  that POSTs to `/api/contact`, plus a footer bar with quick links and the original email.
+**Example — create a booking:**
+```bash
+curl -X POST http://localhost:3000/api/bookings \
+  -H "Content-Type: application/json" \
+  -d '{"full_name":"Jane Doe","email":"jane@example.com","model_id":1,"preferred_date":"2026-08-01"}'
+```
 
-## Notes / things to plug in yourself
+## Known Limitations / TODO
 
-- The hero and gallery images are hot-linked from their original source URLs — swap them
-  for hosted assets before shipping.
-- `Main2` looks for `public/videos/f80-intro.mp4`, which isn't included. Drop a video file
-  there (matching filename or update the `<source>` tag) — it falls back to a static poster
-  image until then.
-- There's no auth on `GET /api/bookings`; it's included for demo/admin convenience. Add
-  auth before exposing it publicly.
+- [ ] Hero and gallery images are hot-linked from external sources — swap for hosted assets
+- [ ] `public/videos/f80-intro.mp4` isn't bundled; falls back to a static poster until added
+- [ ] `GET /api/bookings` has no auth — add before exposing publicly
+- [ ] No automated tests yet
+
+## License
+
+MIT — feel free to fork and adapt.
