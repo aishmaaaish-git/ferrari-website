@@ -1,9 +1,6 @@
-# Ferrari website 🏎️
+# Ferrari Experience 🏎️
 
-A full-stack rebuild of a static Ferrari landing page into a responsive, data-driven website.
-The original animation is preserved pixel-for-pixel; everything below it — the model
-range, test-drive booking system, and contact form — is now backed by a real Express API
-and SQLite database.
+A premium full-stack Ferrari showcase website built with HTML, CSS, JavaScript, Node.js, Express, and SQLite.
 
 **Live demo:** run locally at `http://localhost:3000` (see [Getting Started](#getting-started))
 
@@ -11,12 +8,14 @@ and SQLite database.
 
 ## Features
 
-- **Untouched frontend** — same colors, layout, and hover-reveal animation as the original design, now responsive down to mobile
-- **Dynamic model range** — cards rendered from a SQLite `models` table via `/api/models`, not hardcoded HTML
-- **Live telemetry ticker** — a scrolling HUD-style strip reading real spec data (power, 0–100, top speed) straight from the database
-- **Test-drive booking system** — a validated form that writes bookings to the database via `/api/bookings`
-- **Contact form** — messages persist to a `contact_messages` table via `/api/contact`
-- **Zero build step** — plain HTML/CSS/JS on the frontend, no bundler required
+- Responsive luxury-inspired UI
+- Interactive Ferrari model showcase
+- Test-drive booking system
+- Contact form
+- SQLite database integration
+- RESTful API
+- Dynamic model rendering
+- Mobile responsive design
 
 ## Tech Stack
 
