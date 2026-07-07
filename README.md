@@ -1,4 +1,4 @@
-# 🏎️ Ferrari Experience
+# Ferrari website 🏎️
 
 A full-stack rebuild of a static Ferrari landing page into a responsive, data-driven website.
 The original animation is preserved pixel-for-pixel; everything below it — the model
